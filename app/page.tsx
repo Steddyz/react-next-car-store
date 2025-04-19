@@ -4,8 +4,14 @@ import Hero from "@components/Hero";
 import SearchBar from "@components/SearchBar";
 import { fetchCars } from "@utils";
 
-export default async function Home() {
-  const allCars = await fetchCars();
+export default async function Home({ searchParams }) {
+  const allCars = await fetchCars({
+    manufacturer: searchParams.manifacturer || "",
+    model: searchParams.model || "",
+    year: searchParams.year || 2025,
+    fuel: searchParams.fuel || "",
+    limit: searchParams.limit || 10,
+  });
 
   const isDataEmply = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 

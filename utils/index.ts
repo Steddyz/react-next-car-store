@@ -1,12 +1,14 @@
-import { CarProps } from "@types";
+import { CarProps, FilterProps } from "@types";
 
-export async function fetchCars() {
+export async function fetchCars(filters: FilterProps) {
+  const { manufacturer, model, year, limit, fuel } = filters;
+
   const headers = {
     "x-rapidapi-key": "fd5515951amsh90fd82b61dde406p162034jsn9fe7a7e76057",
     "x-rapidapi-host": "cars-by-api-ninjas.p.rapidapi.com",
   };
   const response = await fetch(
-    "https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?model=q3",
+    `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?model=${model}&&make=${manufacturer}&year=${year}&fuel=${fuel}`,
     {
       headers: headers,
     }
@@ -15,6 +17,8 @@ export async function fetchCars() {
 
   return result;
 }
+
+//bmw m850i xdrive coupe
 
 export const generateCarImage = (car: CarProps, angle?: string) => {
   const url = new URL("https://cdn.imagin.studio/getimage");
